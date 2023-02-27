@@ -3,7 +3,11 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import StarRatings from "react-star-ratings";
 import { images } from "./api/imageKeys";
 import "./App.scss";
-import { resultedArr } from "./lib/Helper";
+import {
+  badgeCountAndAverage,
+  badgesTotalAmount,
+  resultedArr,
+} from "./lib/Helper";
 import listData from "./api/list-data.json";
 function App() {
   const [averagePraiseRating, setAveragePraiseRating] = useState<string>("0");
@@ -16,7 +20,7 @@ function App() {
     const avgPraiseRating = totalPraiseRating / list.Row.length;
     setAveragePraiseRating(avgPraiseRating.toFixed(2));
   }, []);
-  console.log(averagePraiseRating);
+
   return (
     <div className="main">
       <div className="container">

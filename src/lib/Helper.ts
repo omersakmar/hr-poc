@@ -75,3 +75,10 @@ function* chunks<T>(arr: T[], n: number): Generator<T[], void> {
   }
 }
 export const resultedArr = [...chunks(badgeCountAndAverage, 4)];
+
+// total amount of badges
+
+export const badgesTotalAmount = list.Row.reduce(
+  (sum: number, { Badge }: any) => (Badge !== undefined ? ++sum : sum),
+  0
+);
