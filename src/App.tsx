@@ -1,30 +1,27 @@
-import "./App.scss";
-
 import { images } from "./api/imageKeys";
-
-import { badgeOccurrences, filterBadgeOccurrences } from "./lib/Helper";
+import "./App.scss";
+import { listDataRows, resultedArr } from "./lib/Helper";
 
 function App() {
+  console.log(resultedArr);
   return (
     <div className="main">
-      {filterBadgeOccurrences(badgeOccurrences).map(
-        (chunk: any, index: any) => (
-          <div className="grid-container">
-            {chunk.map((item: any) => (
-              <div className="grid-item" key={item.lookupId}>
-                <div className="d-flex flex-row align-items-center">
-                  <img
-                    style={{ width: "50%" }}
-                    src={images[item.lookupId]}
-                    alt={item.value}
-                  />
-                  <p>{item.value}</p>
-                </div>
+      {resultedArr.map((chunk: any, index: any) => (
+        <div className="grid-container">
+          {chunk.map((item: any) => (
+            <div className="grid-item" key={item.lookupValue}>
+              <div className="d-flex flex-row align-items-center">
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={images[item.lookupId]}
+                  alt={item.lookupValue}
+                />
+                <p>{item.lookupValue}</p>
               </div>
-            ))}
-          </div>
-        )
-      )}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,46 +1,77 @@
-import { badgeTitles } from "../api/badge-titles";
 import listData from "../api/list-data.json";
-
-export const countOccurrences = (arr: Array<object>, value: string) => {
-  let count = 0;
-  let lookupId = 0;
-  arr.forEach((obj: any) => {
-    if (
-      obj.Badge &&
-      obj.Badge.some(
-        (badge: any) => badge.lookupValue.toLowerCase() === value.toLowerCase()
-      )
-    ) {
-      count++;
-      lookupId = obj.Badge[0].lookupId;
-    }
-  });
-  return count > 0 ? { count, lookupId } : { count: 0, lookupId: 0 };
-};
 
 export const numberOfGroupElements: number = 4;
 
 const list: any = listData;
 
-const listDataRows = list.Row.map((item: object) => item);
+export const listDataRows = list.Row.map((item: object) => item);
 
-export const badgeOccurrences: object[] = badgeTitles
-  .map((value) => ({
-    value,
-    ...countOccurrences(listDataRows, value),
-  }))
-  .filter(({ count }) => count > 0);
+interface Badge {
+  lookupId: number;
+  lookupValue: string;
+}
 
-export const filterBadgeOccurrences = (badgeInfo: object[]) => {
-  return badgeInfo.reduce((resultArray: any, item: any, index: any) => {
-    const chunkIndex = Math.floor(index / numberOfGroupElements);
+interface Praise {
+  Badge: Badge[];
+  PraiseRating: string;
+}
 
-    if (!resultArray[chunkIndex]) {
-      resultArray[chunkIndex] = []; // start a new chunk
+interface LookupValueStats {
+  lookupValue: string;
+  count: number;
+  averagePraiseRating: number;
+}
+
+// count the occurrences of each lookupValue
+// and compute the average PraiseRating for each lookupValue
+
+export const computeLookupValueStats = (
+  praises: Praise[]
+): LookupValueStats[] => {
+  const lookupValueMap = praises.reduce((map: any, praise: Praise) => {
+    const lookupValue = praise.Badge[0].lookupValue;
+    const lookupId = praise.Badge[0].lookupId;
+
+    if (!map[lookupValue]) {
+      map[lookupValue] = {
+        count: 0,
+        totalPraiseRating: 0,
+      };
     }
 
-    resultArray[chunkIndex].push(item);
+    const praiseRating = parseInt(praise.PraiseRating, 10);
+    map[lookupValue].lookupId = lookupId;
+    map[lookupValue].count++;
+    map[lookupValue].totalPraiseRating += praiseRating;
 
-    return resultArray;
-  }, []);
+    return map;
+  }, {});
+
+  const lookupValueStats: LookupValueStats[] = Object.keys(lookupValueMap).map(
+    (lookupValue) => {
+      const { count, totalPraiseRating, lookupId } =
+        lookupValueMap[lookupValue];
+      const averagePraiseRating = totalPraiseRating / count;
+
+      return {
+        lookupValue,
+        count,
+        averagePraiseRating,
+        lookupId,
+      };
+    }
+  );
+
+  return lookupValueStats;
 };
+
+export const badgeCountAndAverage = computeLookupValueStats(listDataRows);
+
+// split the array into chunks of 4
+
+function* chunks<T>(arr: T[], n: number): Generator<T[], void> {
+  for (let i = 0; i < arr.length; i += n) {
+    yield arr.slice(i, i + n);
+  }
+}
+export const resultedArr = [...chunks(badgeCountAndAverage, 4)];
