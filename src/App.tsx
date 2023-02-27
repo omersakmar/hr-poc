@@ -1,27 +1,50 @@
+import { useEffect, useState } from "react";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import StarRatings from "react-star-ratings";
 import { images } from "./api/imageKeys";
 import "./App.scss";
-import { listDataRows, resultedArr } from "./lib/Helper";
-
+import { resultedArr } from "./lib/Helper";
+import listData from "./api/list-data.json";
 function App() {
-  console.log(resultedArr);
+  const [averagePraiseRating, setAveragePraiseRating] = useState<string>("0");
+  const list: any = listData;
+  useEffect(() => {
+    const totalPraiseRating = list.Row.reduce(
+      (acc: number, row: any) => acc + parseInt(row.PraiseRating),
+      0
+    );
+    const avgPraiseRating = totalPraiseRating / list.Row.length;
+    setAveragePraiseRating(avgPraiseRating.toFixed(2));
+  }, []);
+  console.log(averagePraiseRating);
   return (
     <div className="main">
-      {resultedArr.map((chunk: any, index: any) => (
-        <div className="grid-container">
-          {chunk.map((item: any) => (
-            <div className="grid-item" key={item.lookupValue}>
-              <div className="d-flex flex-row align-items-center">
+      <div className="container">
+        {resultedArr.map((result: object[]) =>
+          result.map((item: any) => (
+            <div className="card">
+              <div className="card-img">
                 <img
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100px", height: "auto", objectFit: "cover" }}
                   src={images[item.lookupId]}
                   alt={item.lookupValue}
                 />
-                <p>{item.lookupValue}</p>
+              </div>
+              <div className="card-content">
+                <h3>{item.lookupValue}</h3>
+                <StarRatings
+                  rating={3}
+                  starRatedColor="orange"
+                  starDimension="20px"
+                  numberOfStars={5}
+                  name="rating"
+                />
+                <p>{item.count} Adet</p>
               </div>
             </div>
-          ))}
-        </div>
-      ))}
+          ))
+        )}
+      </div>
     </div>
   );
 }
