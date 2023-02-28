@@ -1,5 +1,6 @@
+import moment from "moment";
 import listData from "../api/list-data.json";
-
+import "moment/locale/tr";
 export const numberOfGroupElements: number = 4;
 
 const list: any = listData;
@@ -82,3 +83,27 @@ export const badgesTotalAmount = list.Row.reduce(
   (sum: number, { Badge }: any) => (Badge !== undefined ? ++sum : sum),
   0
 );
+
+// remove numbers and special characters
+
+export function cleanStr(str: string): string {
+  return str.replace(/[^\p{L}\s]/gu, "").replace(/\d+/g, "");
+}
+
+// convert date to locale
+
+export const convertDateToLocale = (date: string) => {
+  const dateLocal = moment.utc(date).local();
+  const currentTime = moment();
+  moment.locale("tr)");
+  let formattedDate = "";
+  if (dateLocal.isSame(currentTime, "day")) {
+    formattedDate = dateLocal.format("HH:mm") + "'de Gönderildi";
+  } else if (dateLocal.isSame(currentTime.clone().subtract(1, "day"), "day")) {
+    formattedDate = "Dün, " + dateLocal.format("HH:mm") + "'de Gönderildi";
+  } else {
+    formattedDate =
+      dateLocal.format("D MMMM YYYY [tarihinde], HH:mm") + "'de Gönderildi";
+  }
+  return formattedDate;
+};
