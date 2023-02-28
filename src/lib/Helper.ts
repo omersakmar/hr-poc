@@ -107,3 +107,13 @@ export const convertDateToLocale = (date: string) => {
   }
   return formattedDate;
 };
+
+// get the rewarded badge's ID based on JSON data
+
+export const getFirstTwoNumbers = (input: string) => {
+  if (/^\d{2}/.test(input)) {
+    return input.slice(0, 2);
+  } else {
+    return input.charAt(0);
+  }
+};

@@ -1,0 +1,20 @@
+@use "../../index.scss" as v;
+$fontSize: 13px;
+
+.related-title {
+    color: v.$dark-text;
+    font-size: $fontSize;
+    font-weight: bold;
+}
+
+.related-date {
+    color: v.$light-text;
+    font-size: $fontSize;
+    opacity: v.$light-text-opacity;
+}
+
+.related-message {
+    color: v.$light-text;
+    font-size: 12px;
+
+}

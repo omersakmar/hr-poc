@@ -1,4 +1,3 @@
-import React from "react";
 import "../style/component/CardComponent.scss";
 import StarRatings from "react-star-ratings";
 import { images } from "../api/imageKeys";
