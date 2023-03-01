@@ -1,0 +1,25 @@
+.header-card {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    .flag-rating-container {
+        position: relative;
+    }
+
+    .flag-text {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        bottom: 35px;
+    }
+    .header-text {
+        font-size: 14px;
+    }
+
+    .ratings-count {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+}

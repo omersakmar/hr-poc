@@ -1,20 +1,42 @@
 @use "../../index.scss" as v;
 $fontSize: 13px;
 
-.related-title {
-    color: v.$dark-text;
-    font-size: $fontSize;
-    font-weight: bold;
+.comment-container {
+            padding: 16px 12px;
+                height: auto;
+                border-radius: 5px;
+                -webkit-box-shadow: v.$webkitShadow;
+                -moz-box-shadow: v.$mozBoxShadow;
+                box-shadow: v.$boxShadow;
+
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .related-person-title {
+        font-size: $fontSize;
+        color: v.$dark-text;
+        
+    }
+    .related-person-createdAt {
+        font-size: $fontSize;
+        color: v.$light-text;
+    }
+
+.comment-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    margin-right: 8px;
+}
 }
 
-.related-date {
-    color: v.$light-text;
-    font-size: $fontSize;
-    opacity: v.$light-text-opacity;
+.comment-badge-image {
+    width: 65px;
+    height: 65px;
+    margin-right: 8px;
+
 }
-
-.related-message {
-    color: v.$light-text;
-    font-size: 12px;
-
 }

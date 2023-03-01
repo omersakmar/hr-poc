@@ -1,6 +1,5 @@
-import React from "react";
-import StarRatings from "react-star-ratings";
-
+import "../style/component/OverallRatings.scss";
+import StarRatingComponent from "./StarRatingComponent";
 interface OverallRatingsProps {
   imgSrc: string;
   avgRating: string;
@@ -13,24 +12,18 @@ const OverallRatings = ({
   badgesTotalAmount,
 }: OverallRatingsProps) => {
   return (
-    <div className="d-flex align-items-center mb-4">
-      <div className="top-container">
-        <img src={imgSrc} alt="icon-flag" />
-        <div className="span-container">
-          <span>{avgRating}</span>
-        </div>
+    <div className="header-card">
+      <div className="flag-rating-container">
+        <img src={imgSrc} alt="icon-flag" style={{ width: "49px" }} />
+        <div className="flag-text">{avgRating}</div>
       </div>
-      <div className="d-flex flex-column">
-        <p>Tüm Rozetlerde</p>
-        <div className="d-flex gap-2 align-items-center">
-          <span>
-            <StarRatings
-              rating={Number(avgRating)}
-              starRatedColor="orange"
-              starDimension="20px"
-            />
-          </span>
-          <span>{badgesTotalAmount} Adet</span>
+      <div className="">
+        <div className="header-text">Tüm Rozetlerde</div>
+        <div className="ratings-count">
+          <div>
+            <StarRatingComponent rating={Number(avgRating)} />
+          </div>
+          <div>{badgesTotalAmount} Adet</div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import "../style/component/CardComponent.scss";
-import StarRatings from "react-star-ratings";
 import { images } from "../api/imageKeys";
+import StarRatingComponent from "./StarRatingComponent";
 interface CardComponentProps {
-  item: {
+  badge: {
     lookupId: number;
     lookupValue: string;
     count: number;
@@ -10,24 +10,20 @@ interface CardComponentProps {
   };
 }
 
-const CardComponent = ({ item }: CardComponentProps) => {
+const CardComponent = ({ badge }: CardComponentProps) => {
   return (
-    <div className="carousel-item-container">
-      <div className="avatar-container">
-        <img src={images[item.lookupId]} alt={item.lookupValue} />
-      </div>
+    <div className="header-rate">
+      <img
+        src={images[badge.lookupId]}
+        className="header-badge-image"
+        alt={badge.lookupValue}
+      />
       <div>
-        <p className="lookupValue-text">{item.lookupValue}</p>
-        <span>
-          <StarRatings
-            rating={item.averagePraiseRating}
-            starRatedColor="#F9C164"
-            starDimension="15px"
-            numberOfStars={5}
-            name="rating"
-          />
-        </span>
-        <p className="count-text">{item.count} Adet</p>
+        <div style={{ fontSize: "13px" }}>{badge.lookupValue}</div>
+        <div>
+          <StarRatingComponent rating={badge.averagePraiseRating} />
+        </div>
+        <div className="badge-count-text">{badge.count} Adet</div>
       </div>
     </div>
   );

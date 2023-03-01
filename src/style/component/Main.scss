@@ -1,0 +1,49 @@
+@use "../../index.scss" as v;
+
+.main {
+    width: 100%;
+    padding: 20px;
+}
+
+.header-container {
+    width: 100%;
+    padding: 16px 12px;
+    height: auto;
+    border-radius: 5px;
+    -webkit-box-shadow: v.$webkitShadow;
+    -moz-box-shadow: v.$mozBoxShadow;
+    box-shadow: v.$boxShadow;
+}
+
+.header-container .header-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    place-items: center;
+    align-items: center;
+}
+
+.badge-comment-section {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        gap: 20px;;
+        padding: 16px 12px;
+}
+
+@media only screen and (max-width: 768px) {
+    .header-container .header-grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 8px;
+    }
+    .badge-comment-section {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            align-items: center;
+            column-gap: 8px;
+            ;
+        }
+}

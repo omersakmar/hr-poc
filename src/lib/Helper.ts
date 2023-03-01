@@ -1,11 +1,9 @@
 import moment from "moment";
-import listData from "../api/list-data.json";
 import "moment/locale/tr";
+import { ListDataRow } from "../service";
 export const numberOfGroupElements: number = 4;
 
-const list: any = listData;
-
-export const listDataRows = list.Row.map((item: object) => item);
+export const listDataRows = ListDataRow.map((item: object) => item);
 
 interface Badge {
   lookupId: number;
@@ -70,16 +68,16 @@ export const badgeCountAndAverage = computeLookupValueStats(listDataRows);
 
 // split the array into chunks of 4
 
-function* chunks<T>(arr: T[], n: number): Generator<T[], void> {
+export function* chunks<T>(arr: T[], n: number): Generator<T[], void> {
   for (let i = 0; i < arr.length; i += n) {
     yield arr.slice(i, i + n);
   }
 }
-export const resultedArr = [...chunks(badgeCountAndAverage, 4)];
+export const chunkedBadgeInformation = [...chunks(badgeCountAndAverage, 4)];
 
 // total amount of badges
 
-export const badgesTotalAmount = list.Row.reduce(
+export const badgesTotalAmount = ListDataRow.reduce(
   (sum: number, { Badge }: any) => (Badge !== undefined ? ++sum : sum),
   0
 );
