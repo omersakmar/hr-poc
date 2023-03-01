@@ -20,10 +20,10 @@ const OverallRatings = ({
       <div className="">
         <div className="header-text">Tüm Rozetlerde</div>
         <div className="ratings-count">
-          <div>
-            <StarRatingComponent rating={Number(avgRating)} />
+          <StarRatingComponent rating={Number(avgRating)} />
+          <div className="total-amount-text">
+            <span>{badgesTotalAmount} Adet</span>
           </div>
-          <div>{badgesTotalAmount} Adet</div>
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+@use "../../index.scss" as v;
+
 .header-card {
     display: flex;
     align-items: center;
@@ -10,16 +12,24 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        color: white;
-        bottom: 35px;
+        color: #FFFFFF;
+        font-size: 24px;
+        bottom: 20px;
     }
     .header-text {
         font-size: 14px;
+        color: v.$dark-text;
     }
 
     .ratings-count {
         display: flex;
         align-items: center;
         gap: 5px;
+
+        .total-amount-text {
+            color: v.$light-text;
+            font-size: 10px;
+            margin-top: 6px;
+        }
     }
 }
